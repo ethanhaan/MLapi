@@ -11,4 +11,6 @@ def load_model(model_path):
             continue
         models[re.sub(r"\.joblib$", "", filename)] = joblib.load(f"{model_path}/{filename}")
 
+    # Testing
+    first_key = next(iter(models))
     return models

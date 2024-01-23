@@ -17,7 +17,6 @@ class DiabetesPredictionModel(BaseModel):
     BMI: float
     DiabetesPedigreeFunction: float
     Age: int
-    Outcome: int
 
 @router.get('/models')
 async def get_models():
@@ -29,6 +28,9 @@ async def get_features():
     return feature_names
 
 @router.post("/random_forest")
-async def classifiy_random_forest(req: DiabetesPredictionModel):
-    input_data = pd.DataFrame([req.modeldump()])
-    return models["random_forest"].predict(input_data)
+async def classify_random_forest(req: DiabetesPredictionModel):
+    input_data = pd.DataFrame([req.model_dump()])
+    prediction = models["random_forest"].predict(input_data)
+    prediction = prediction.tolist()
+    classification = "Postive" if prediction[0] == 1 else "Negative"
+    return  {"Classification": classification}
