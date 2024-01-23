@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from model_routers.router_imdb_ratings import router as router_imdb_ratings
-from model_routers.router_diabetes_prediction import router as router_diabetes_prediction
+from model_routers.imdb_ratings.router import router as router_imdb_ratings
+from model_routers.diabetes_prediction.router import router as router_diabetes_prediction
 
 app = FastAPI()
 
@@ -21,11 +21,8 @@ models = {
     "Diabetes Prediction": {"router": router_diabetes_prediction, "path": "/model/diabetes_prediction"},
 }
 
-# for key in models:
-#     app.include_router(models[key]["router"], prefix=models[key]["path"], tags=[models[key]["path"].split("/")[-1]])
-
-app.include_router(router_imdb_ratings, prefix="/model/imdb_ratings", tags=["imdb_ratings"])
-app.include_router(router_diabetes_prediction, prefix="/model/diabetes_prediction", tags=["diabetes_prediction"])
+for key in models:
+    app.include_router(models[key]["router"], prefix=models[key]["path"], tags=[models[key]["path"].split("/")[-1]])
 
 @app.get("/")
 def get_root():
