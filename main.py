@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from model_routers.imdb_ratings.router import router as router_imdb_ratings
 from model_routers.diabetes_prediction.router import router as router_diabetes_prediction
+from model_routers.stock_news.router import router as router_stock_news
 
 app = FastAPI()
 
@@ -17,8 +18,9 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="saved"), name="static")
 
 models = {
-    "IMDB Ratings": { "router": router_imdb_ratings, "path": "/model/imdb_ratings"},
-    "Diabetes Prediction": {"router": router_diabetes_prediction, "path": "/model/diabetes_prediction"},
+    "IMDB Ratings": { "router": router_imdb_ratings, "path": "/model/imdb_ratings" },
+    "Diabetes Prediction": {"router": router_diabetes_prediction, "path": "/model/diabetes_prediction" },
+    "Stock News Analysis": {"router": router_stock_news, "path": "/model/stock_news" },
 }
 
 for key in models:

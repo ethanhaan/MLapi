@@ -13,7 +13,7 @@ import time
 
 def setup_webdriver():
     options = webdriver.ChromeOptions()
-    #options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--enable-logging")
     options.add_argument("--v=1")
     options.add_argument("--no-sandbox")  # Bypass OS security model, necessary on some systems
