@@ -23,10 +23,11 @@ async def get_features():
 
 @router.post("/naive_bayes")
 async def classify_naive_bayes(req: ReviewTextModel):
-    vectorised_data = tfidf_vectoriser.transform(pd.Series([req.review]))
+    vectorised_data = tfidf_vectoriser.transform(pd.Series([req.Review]))
     return models["naive_bayes"].predict(vectorised_data)[0]
 
 @router.post("/logistic_regression")
 async def classify_logistic_regression(req: ReviewTextModel):
-    vectorised_data = tfidf_vectoriser.transform(pd.Series([req.review]))
+    vectorised_data = tfidf_vectoriser.transform(pd.Series([req.Review]))
     return models["logistic_regression"].predict(vectorised_data)[0]
+
